@@ -1,0 +1,41 @@
+@layer utilities {
+  .sparkle-button {
+    --active: 0;
+    --transition: 0.3s;
+    background: radial-gradient(
+        40% 50% at center 100%,
+        hsl(270 calc(var(--active) * 97%) 72% / var(--active)),
+        transparent
+      ),
+      radial-gradient(
+        80% 100% at center 120%,
+        hsl(260 calc(var(--active) * 97%) 70% / var(--active)),
+        transparent
+      ),
+      hsl(260 calc(var(--active) * 97%) calc((var(--active) * 44%) + 12%));
+    box-shadow:
+      0 0 calc(var(--active) * 3em) calc(var(--active) * 1em)
+        hsl(260 97% 61% / 0.75),
+      inset 0 0 0 hsl(260 calc(var(--active) * 97%) 50%);
+    transition: all 0.3s ease;
+  }
+
+  .sparkle-button:hover,
+  .sparkle-button:focus-visible {
+    --active: 1;
+  }
+
+  .sparkle {
+    fill: currentColor;
+    animation: bounce 0.6s ease;
+  }
+
+  @keyframes bounce {
+    35% {
+      transform: scale(0.5);
+    }
+    65% {
+      transform: scale(1.2);
+    }
+  }
+}
