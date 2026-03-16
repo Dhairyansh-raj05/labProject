@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { NAV_ITEMS } from "../components/constants";
 import { Search, ShoppingCart, User, Menu, X } from "lucide-react";
+import Link from "next/link";
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,7 +24,7 @@ const Header: React.FC = () => {
 
           <nav className="hidden lg:flex items-center gap-8">
             {NAV_ITEMS.map((item) => (
-              <a
+              <Link
                 key={item.label}
                 href={item.href}
                 className="relative group py-2 text-sm font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-200 transition-colors hover:text-primary"
@@ -31,7 +32,7 @@ const Header: React.FC = () => {
                 {item.label}
                 {/* Animated Hover Underline */}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-              </a>
+              </Link>
             ))}
           </nav>
         </div>
@@ -45,7 +46,7 @@ const Header: React.FC = () => {
               <input
                 type="text"
                 placeholder="Search retro hardware..."
-                className="w-full bg-slate-200 dark:bg-white/5 border-none rounded-lg pl-10 pr-4 py-2 focus:ring-2 focus:ring-primary text-sm text-slate-900 dark:text-white placeholder-slate-500"
+                className="w-full bg-[#1a1a1a] border-none rounded-lg pl-10 pr-4 py-2 focus:ring-2 focus:ring-primary text-sm text-white placeholder-slate-500"
               />
             </div>
           </div>
@@ -82,14 +83,14 @@ const Header: React.FC = () => {
           </div>
           
           {NAV_ITEMS.map((item) => (
-            <a
+            <Link
               key={item.label}
               href={item.href}
               className="text-lg font-bold uppercase tracking-widest py-2 border-b border-slate-100 dark:border-white/5"
               onClick={() => setIsMenuOpen(false)}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </div>
       )}

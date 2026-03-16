@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { getConsoleAdvice } from "../services/geminiService";
 import { ChatMessage } from "../types/types";
 import { MessageSquare, Bot, X, Send, User } from "lucide-react";
 
@@ -11,7 +10,7 @@ const ChatBot: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "model",
-      text: "Hey there! I am Geno, your personal gear scout. Looking for a retro classic like the GameCube or a modern         powerhouse like the PS5?",
+      text: "Hey there! I am Geno, your personal gear scout. Looking for a retro classic like the GameCube or a modern powerhouse like the PS5?",
     },
   ]);
   const [isTyping, setIsTyping] = useState(false);
@@ -31,10 +30,28 @@ const ChatBot: React.FC = () => {
     setMessages((prev) => [...prev, { role: "user", text: userMsg }]);
     setIsTyping(true);
 
-    const aiResponse = await getConsoleAdvice(userMsg);
-
-    setIsTyping(false);
-    setMessages((prev) => [...prev, { role: "model", text: aiResponse }]);
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMsg }),
+      });
+      const data = await res.json();
+      setMessages((prev) => [
+        ...prev,
+        { role: "model", text: data.response || "Sorry, something went wrong." },
+      ]);
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "model",
+          text: "Sorry, I'm having trouble connecting right now. Please try again!",
+        },
+      ]);
+    } finally {
+      setIsTyping(false);
+    }
   };
 
   return (

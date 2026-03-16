@@ -1,5 +1,5 @@
-import React from "react";
 import { ArrowRight, BadgeCheck } from "lucide-react";
+import Link from "next/link";
 
 const Hero: React.FC = () => {
   return (
@@ -28,14 +28,14 @@ const Hero: React.FC = () => {
           and shipped across India.
         </p>
         <div className="flex flex-wrap gap-4 pt-4">
-          <button className="bg-[#b90df2] text-white px-8 py-4 rounded-lg font-bold text-lg neon-glow hover:bg-primary/90 transition-all flex items-center gap-2 transform active:scale-95 group">
+          <Link href="/consoles" className="bg-[#b90df2] text-white px-8 py-4 rounded-lg font-bold text-lg neon-glow hover:bg-primary/90 transition-all flex items-center gap-2 transform active:scale-95 group">
             Shop Now
             <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-          </button>
+          </Link>
 
-          <button className="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-lg font-bold text-lg hover:bg-white/20 transition-all transform active:scale-95">
+          <Link href="/sell" className="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-lg font-bold text-lg hover:bg-white/20 transition-all transform active:scale-95">
             Sell Your Gear
-          </button>
+          </Link>
         </div>
       </div>
     </section>

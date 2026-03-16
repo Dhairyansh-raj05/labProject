@@ -1,0 +1,72 @@
+﻿Step 1: Creating Database
+Step 2: Creating adapter
+Step 3: Creating PrismaClient
+Step 4: Running query
+node : Error name: 
+TypeError
+At line:1 char:1
++ node test-prisma.js 2>&1 
+| Out-File -FilePath 
+test-output.txt -Encodi ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo         
+     : NotSpecified: (Err  
+  or name: TypeError:Str   
+ ing) [], RemoteExcepti    
+on
+    + FullyQualifiedErrorI 
+   d : NativeCommandError
+ 
+Error message: Cannot read 
+properties of undefined 
+(reading 'replace')
+Stack: TypeError: Cannot 
+read properties of 
+undefined (reading 
+'replace')
+    at 
+createBetterSQLite3Client (
+D:\OneDrive\Desktop\labcode
+\node_modules\@prisma\adapt
+er-better-sqlite3\dist\inde
+x.js:648:22)
+    at PrismaBetterSqlite3A
+dapterFactory.connect (D:\O
+neDrive\Desktop\labcode\nod
+e_modules\@prisma\adapter-b
+etter-sqlite3\dist\index.js
+:637:59)
+    at e.connect (D:\OneDri
+ve\Desktop\labcode\node_mod
+ules\@prisma\client\runtime
+\client.js:57:311)
+    at #u (D:\OneDrive\Desk
+top\labcode\node_modules\@p
+risma\client\runtime\client
+.js:57:18565)
+    at D:\OneDrive\Desktop\
+labcode\node_modules\@prism
+a\client\runtime\client.js:
+57:17902
+    at 
+Object.runInChildSpan (D:\O
+neDrive\Desktop\labcode\nod
+e_modules\@prisma\client\ru
+ntime\client.js:65:2516)
+    at mi.runInChildSpan (D
+:\OneDrive\Desktop\labcode\
+node_modules\@prisma\client
+\runtime\client.js:65:2850)
+    at #s (D:\OneDrive\Desk
+top\labcode\node_modules\@p
+risma\client\runtime\client
+.js:57:17840)
+    at jt.request (D:\OneDr
+ive\Desktop\labcode\node_mo
+dules\@prisma\client\runtim
+e\client.js:58:1995)
+    at Object.singleLoader 
+(D:\OneDrive\Desktop\labcod
+e\node_modules\@prisma\clie
+nt\runtime\client.js:65:659
+5)

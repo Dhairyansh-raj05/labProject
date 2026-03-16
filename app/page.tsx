@@ -5,57 +5,47 @@ import ProductCard from "../components/ProductCard";
 import TrustSection from "../components/TrustSection";
 import Footer from "../components/Footer";
 import ChatBot from "../components/ChatBot";
-import { PRODUCTS } from "../components/constants";
+import { prisma } from "@/lib/db";
+import { Condition, Product } from "../types/types";
+import Link from "next/link";
 
-const GAMES = [
-  {
-    id: 1,
-    title: "Grand Theft Auto V",
-    price: "₹1,299",
-    image: "/GTA5.png",
-  },
-  {
-    id: 2,
-    title: "Red Dead Redemption 2",
-    price: "₹1,999",
-    image: "/RDR2.png",
-  },
-  {
-    id: 3,
-    title: "Spider-Man: Remastered",
-    price: "₹1,499",
-    image: "/SMR.png",
-  },
-  {
-    id: 4,
-    title: "Uncharted 4: A Thief's End",
-    price: "₹1,199",
-    image: "/UC4.png",
-  },
-  {
-    id: 5,
-    title: "Ghost of Tsushima",
-    price: "₹1,099",
-    image: "/GoT.png",
-  },
-  {
-    id: 6,
-    title: "Cyberpunk 2077",
-    price: "₹1,599",
-    image: "/CP.png",
-  },
-];
+export default async function App() {
+  const [dbProducts, dbGames] = await Promise.all([
+    prisma.product.findMany({ 
+      orderBy: { createdAt: "desc" },
+      take: 4 // Limit items on home page
+    }),
+    prisma.game.findMany({ 
+      orderBy: { createdAt: "desc" },
+      take: 6 // Limit items on home page
+    }),
+  ]);
 
-const App: React.FC = () => {
+  const products: Product[] = dbProducts.map((p) => ({
+    id: p.id,
+    name: p.name,
+    currentPrice: p.currentPrice,
+    originalPrice: p.originalPrice,
+    condition: p.condition as Condition,
+    imageUrl: p.imageUrl,
+    statusText: p.statusText,
+    statusIcon: p.statusIcon,
+  }));
+
+  const games = dbGames.map((g) => ({
+    id: g.id,
+    title: g.title,
+    price: `₹${g.price.toLocaleString("en-IN")}`,
+    image: g.image,
+  }));
+
   return (
-    <div className="min-h-screen flex flex-col bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-[#0a0a0a] text-white font-display overflow-x-hidden">
       <Header />
 
       <main className="max-w-[1440px] mx-auto w-full px-6 lg:px-20 py-10 flex flex-col gap-16 lg:gap-24">
-        {/* Hero Section */}
         <Hero />
 
-        {/* Featured Section */}
         <section id="consoles" className="scroll-mt-32">
           <div className="flex flex-col md:flex-row items-baseline justify-between mb-10 gap-4">
             <div>
@@ -63,30 +53,27 @@ const App: React.FC = () => {
                 Featured Gear
               </h2>
               <p className="text-slate-500 dark:text-slate-400 mt-2 text-lg">
-                Recently certified and ready for battle in your setup.
+                High-performance consoles, tested and ready.
               </p>
             </div>
-            <a
+            <Link
               className="text-primary font-bold flex items-center gap-1 hover:gap-2 transition-all group"
-              href="#"
+              href="/consoles"
             >
               View all consoles
               <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">
                 chevron_right
               </span>
-            </a>
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            {PRODUCTS.map((product) => (
+            {products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
         </section>
 
-        {/* Trust Section */}
-
-        {/* Games Section */}
         <section id="games" className="scroll-mt-32 pb-10">
           <div className="flex flex-col md:flex-row items-baseline justify-between mb-10 gap-4">
             <div>
@@ -94,22 +81,22 @@ const App: React.FC = () => {
                 Collector&apos;s Vault
               </h2>
               <p className="text-slate-500 dark:text-slate-400 mt-2 text-lg">
-                Rare finds and legendary titles for your collection.
+                Iconic titles and rare physical releases.
               </p>
             </div>
-            <a
+            <Link
               className="text-primary font-bold flex items-center gap-1 hover:gap-2 transition-all group"
-              href="#"
+              href="/games"
             >
               Explore games
               <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">
                 chevron_right
               </span>
-            </a>
+            </Link>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {GAMES.map((game) => (
+            {games.map((game) => (
               <div
                 key={game.id}
                 className="group relative aspect-[3/4] bg-slate-100 dark:bg-white/5 rounded-xl overflow-hidden cursor-pointer border border-slate-200 dark:border-white/10 hover:border-primary/50 transition-all"
@@ -138,6 +125,4 @@ const App: React.FC = () => {
       <ChatBot />
     </div>
   );
-};
-
-export default App;
+}

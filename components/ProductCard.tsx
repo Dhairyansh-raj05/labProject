@@ -28,8 +28,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <div className="product-card group bg-white dark:bg-white/5 rounded-xl border border-slate-200 dark:border-white/10 overflow-hidden flex flex-col h-full cursor-pointer">
-      <div className="relative aspect-square overflow-hidden bg-slate-100 dark:bg-slate-800">
+    <div className="product-card group bg-[#1a1a1a] rounded-xl border border-white/10 overflow-hidden flex flex-col h-full cursor-pointer">
+      <div className="relative aspect-square overflow-hidden bg-[#1a1a1a]">
         <div className={`absolute top-3 right-3 z-10 px-2 py-1 rounded ${getBadgeColor(product.condition)} text-white text-[10px] font-black uppercase tracking-tighter`}>
           {product.condition}
         </div>
